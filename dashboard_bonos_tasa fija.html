@@ -186,23 +186,22 @@ const num  = s => { if(!s) return null; const n=parseFloat(String(s).replace(/[^
 function parseCSV(text){
   const lines = text.trim().split("\n").map(l=>l.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).map(c=>c.replace(/^"|"$/g,"").trim()));
   // Buscar la fila de encabezados (contiene "TÍTULO" o "TITULO")
-  let headerIdx = lines.findIndex(r => r.some(c => /t[íi]tulo/i.test(c)));
+  let headerIdx = lines.findIndex(r => r.some(c => /t[íi]tul/i.test(c) || /titulo/i.test(c)));
   if(headerIdx === -1) return [];
   const headers = lines[headerIdx].map(h => h.toUpperCase().trim());
 
   // Mapear columnas por nombre
   const col = name => headers.findIndex(h => h.includes(name));
-  const iT   = col("TÍTULO") !== -1 ? col("TÍTULO") : col("TITULO");
-  const iVto = headers.findIndex(h => h.includes("VTO") || (h.includes("CAL") && h.includes("CULO")));
-  // VTO es la 3ra columna (índice 2) según estructura original
-  const iDias= col("DÍA") !== -1 ? col("DÍA") : col("DIA");
+  const iT   = 0;
+  const iVto = 2;
+  const iDias= col("DIA") !== -1 ? col("DIA") : col("DÍAS");
   const iPre = col("PRECIO");
   const iVF  = col("VALOR FINAL");
   const iTper= col("TASA PER");
   const iTNA = col("TNA");
   const iTIR = col("TIR");
   const iTRA = col("TRA");
-  const iVT  = col("V. TÉCNICO") !== -1 ? col("V. TÉCNICO") : col("V. TECNICO");
+  const iVT  = col("CNICO");
   const iPar = col("PARIDAD");
 
   const rows = [];
