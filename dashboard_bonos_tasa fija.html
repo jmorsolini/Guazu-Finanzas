@@ -245,7 +245,8 @@ async function loadData(){
   st && (st.className="status-loading", st.textContent="● cargando");
 
   try{
-    const res = await fetch(CSV_URL + "&t=" + Date.now());
+    const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(CSV_URL);
+    const res = await fetch(proxyUrl);
     if(!res.ok) throw new Error("HTTP "+res.status);
     const text = await res.text();
     const rows = parseCSV(text);
